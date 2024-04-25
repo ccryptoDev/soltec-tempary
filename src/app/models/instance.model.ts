@@ -5,6 +5,11 @@ export interface InstanceFile {
   fileCategory: string;
   createdAt: string;
 }
+export interface InstanceTracker {
+  is_cardan: boolean,
+  tracker_tags: string[],
+  tracker_tags_and_texts: {}
+}
 
 export interface Coordinate {
   tracker_id: string;
@@ -13,7 +18,21 @@ export interface Coordinate {
   x_south: number;
   y_south: number;
 }
-
+export interface TrackerInformation {
+  "tracker_id": number,
+  "name": string,
+  "point_SW": number[],
+  "point_SE": number[],
+  "point_NW": number[],
+  "point_NE": number[]
+}
+export interface InstanceTrackerDrawList {
+  "trackers_count": number,
+  "slaves_count": number,
+  "possible_trackers_count": number,
+  "trackers": TrackerInformation[],
+  "possible_trackers": TrackerInformation[]
+}
 export interface CoordinateSet {
   colorGroup: string;
   colorCode: string;
@@ -43,3 +62,4 @@ export interface FileQueueItem {
   error: boolean;
   progress: number;
 }
+
