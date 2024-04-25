@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Project, ProjectDetailData, ProjectDetails } from '../models/project.model';
+import { InstanceTracker } from '../models/instance.model'
+
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +12,7 @@ import { Project, ProjectDetailData, ProjectDetails } from '../models/project.mo
 export class ProjectsService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getProjects(): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.apiUrl}/projects`);
@@ -55,5 +57,10 @@ export class ProjectsService {
   deleteInstance(projectId: string, instanceId: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/projects/${projectId}/instances/${instanceId}`);
   }
+
+  getInstanceID(instanceId: string): Observable<InstanceTracker> {
+    return this.http.get<InstanceTracker>(`${this.apiUrl}/pasos/paso2-1/${instanceId}`);
+  }
+
 }
 

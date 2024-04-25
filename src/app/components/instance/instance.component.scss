@@ -17,6 +17,8 @@
   }
 }
 
+
+
 .instance-files {
   width: 470px;
   height: 100%;
@@ -106,8 +108,10 @@
       }
     }
 
-    th, td {
-      padding: 11px 24px;;
+    th,
+    td {
+      padding: 11px 24px;
+      ;
       text-align: left;
     }
 
@@ -268,7 +272,7 @@
           justify-content: center;
           gap: 66px;
 
-          & > div {
+          &>div {
             width: 366px;
             height: 380px;
             border-radius: 8px;
@@ -337,7 +341,7 @@
                   flex-direction: column;
                   width: 100%;
 
-                  & > div {
+                  &>div {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
@@ -404,3 +408,277 @@
   }
 }
 
+.panel {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 20px;
+}
+
+.panel-header {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.panel-header h2 {
+  margin: 0;
+}
+
+.panel-content {
+  margin-top: 10px;
+}
+
+.checkbox-row {
+  margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.confirm-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 66px;
+  margin: 0px;
+  padding: 0px;
+
+  .tracker-header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    background-color: #F6F8FA;
+    font-size: 16px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  .color-orange {
+    background-color: orange;
+  }
+  .tracker-check {
+    width: 328px;
+    margin-top: 20px;
+    height: 56px;
+    display: block;
+    border-radius: 8px;
+    line-height: 56px;
+    border: 1px solid gainsboro;
+    text-align: left;
+    padding-left: 30px;
+  }
+
+  .tracker-check.toggleCheck {
+    width: 248px;
+    height: 54px;
+    
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .flex-center {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tracker-check:active {
+    border-color: orange;
+  }
+
+  .tracker-check.active {
+    border-color: orange;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.13);
+  }
+
+  .tracker-form {
+    width: 444px;
+    height: 411px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 0px;
+  }
+
+  .tracker-body {
+    position: relative;
+    height: 304px;
+    margin-top: 0px;
+  }
+
+  .tracker-body-layout {
+    display: flex;
+    height: 304px;
+    justify-content: center;
+
+    .tracker-body-left {
+      flex-basis: 50%;
+      border-right: 1px solid #999;
+      height: 304px;
+      background-color: #F2F2F2;
+    }
+
+    .tracker-body-right {
+      flex-basis: 50%;
+      height: 304px;
+    }
+  }
+
+  .toggle-switch {
+    position: relative;
+    display: block;
+    width: 48px;
+    height: 24px;
+    background-color: #6A7A8C;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    float: left;
+  }
+
+  .toggle-switch.active {
+    background-color: orange;
+  }
+
+  .toggle-background-clicked {
+    background-color: orange;
+  }
+
+  .toggle-slider {
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    transition: transform 0.3s;
+  }
+
+  .checked {
+    transform: translateX(24px);
+  }
+
+  .tracker-slave-form {
+    width: 578px;
+    height: 411px;
+    border-radius: 10px;
+    border: 1px solid #CBD2D9;
+    padding: 0px;
+  }
+  .tracker-draw-items {
+    width: 375px;
+    height: 350px;
+    border-radius: 10px;
+    border: 1px solid #CBD2D9;
+    padding: 0px;
+  }
+
+  .publish-tracker-items {
+    width: 375px;
+    height: 240px;
+    border-radius: 10px;
+    border: 1px solid #CBD2D9;
+  }
+
+  .h-67 {
+    height: 67px;
+    line-height: 67px;
+    padding: 0px;
+    margin: 0px;
+  }
+  .h-50 {
+    height: 50px;
+    margin: 0px;
+    padding: 0;
+  }
+
+  .tracker-footer {
+    cursor: pointer;
+    text-align: left;
+    margin-top: 5px;
+    margin-left: 50px;
+  }
+
+  .h-40 {
+    height: 40px;
+    line-height: 40px;
+  }
+
+  .tracker-toggle {
+    height: 40px;
+    margin-top: 0px;
+    padding-left: 50px;
+    border-top: 1px solid #ccc;
+  }
+
+  .font-18 {
+    font-size: 18px;
+  }
+
+  .font-16 {
+    font-size: 16px;
+  }
+
+  .line-22 {
+    line-height: 22px;
+  }
+
+  .font-w-400 {
+    font-weight: 400;
+  }
+
+  .tracker-header-text {
+    font-weight: 700;
+    line-height: 22px;
+    text-align: center;
+  }
+
+  .font-calibri {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+
+  .tracker-right-text {
+    width: 241px;
+    padding: 10px;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+    font-style: normal;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .custom-checkbox {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    input[type="checkbox"] {
+      /* Hide the default checkbox */
+      appearance: none;
+      position: relative;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'%3E%3Crect x='1' y='1' width='16' height='16' rx='4' fill='white' stroke='%23CBD2D9'/%3E%3C/svg%3E");
+      background-size: 100% 100%;
+      padding: 0;
+      margin: 0;
+      margin-right: 5px;
+    }
+
+    input[type="checkbox"]:checked::before {
+      content: '';
+      position: absolute;
+      display: inline-block;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'%3E%3Crect x='1' y='1' width='16' height='16' rx='4' fill='%23F4950D' stroke='%23F4950D'/%3E%3Cpath d='M5 9.00005L7.4 11.4L13 5.80005' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-size: 100% 100%;
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

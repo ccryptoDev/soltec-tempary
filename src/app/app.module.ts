@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -36,11 +37,14 @@ import { ShareProjectModalComponent } from './components/modals/share-project-mo
 import { InstanceComponent } from './components/instance/instance.component';
 import { CreateInstanceModalComponent } from './components/modals/create-instance-modal/create-instance-modal.component';
 import { SelectInstanceModalComponent } from './components/modals/select-instance-modal/select-instance-modal.component';
+import { TrackerDrawComponent } from './components/tracker-draw/tracker-draw.component';
+import { DragDropListComponent } from './components/drag-drop-list/drag-drop-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    TrackerDrawComponent,
     RegisterComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
@@ -72,9 +76,11 @@ import { SelectInstanceModalComponent } from './components/modals/select-instanc
     MatFormFieldModule,
     MatTableModule,
     MatSortModule,
+    MatSlideToggleModule,
     MatPaginatorModule,
     SharedModule,
     TooltipModule,
+    DragDropListComponent,
   ],
   providers: [
     {

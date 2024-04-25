@@ -1,0 +1,10 @@
+<div class="tracker-draw">
+    <canvas #canvas width="875" height="566" class="tracker-draw-canvas"></canvas>
+    <div class="zoom-group">
+        <div (click)="zoomIn()" class="zoom-button zoom-in">+</div>
+        <div (click)="zoomOut()" class="zoom-button zoom-out">-</div>
+    </div>
+    <div class="tracker-draw-canvas-footer">
+        <strong>{{tc1}}</strong> trackers encontrados| <strong>{{tc2}}</strong> trackers bifila| <strong>{{tc3}}</strong> posibles trackers
+    </div>
+</div>
