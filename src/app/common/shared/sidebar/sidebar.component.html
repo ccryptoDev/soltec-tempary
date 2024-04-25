@@ -1,0 +1,39 @@
+<div class="sidebar" [class.collapsed]="isSidebarCollapsed">
+  <div class="sidebar-inner">
+    <div class="sidebar-header">
+      <img
+        [src]="isSidebarCollapsed ? 'assets/images/collapse-logo.png' : 'assets/images/sidebar-logo.png'"
+        alt="soltec"
+        (click)="onToggleCollapse();"
+      >
+    </div>
+    <div class="sidebar-content">
+      <div class="menu opacity-5">
+        <img src="assets/images/projects.png" (click)="clickMenu('projects')">
+        <span (click)="clickMenu('projects')">Projects</span>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <div class="footer-profile">
+        <img class="profile-logo" src="assets/images/no-profile.png" />
+        <div>
+          <h2>Diego Perez</h2>
+          <p>Admin</p>
+        </div>
+      </div>
+      <div class="footer-icons">
+        <img src="assets/images/gear.png" (click)="openProfileModal()" />
+        <img *ngIf="isSidebarCollapsed" src="assets/images/collapse.png">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-profile-modal
+  [isSidebarCollapsed]="isSidebarCollapsed"
+  [isModalOpen]="isProfileModalOpen"
+  [userData]="userData"
+  (closeModalEvent)="closeProfileModal()"
+></app-profile-modal>
+

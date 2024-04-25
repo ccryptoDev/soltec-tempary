@@ -1,0 +1,81 @@
+<div class="page-container">
+  <div class="content" [ngClass]="{ 'content-expanded': isSidebarCollapsed }">
+    <app-page-header
+      pageName="Proyectos"
+      description=""
+      (search)="onSearch($event)"
+      (filter)="onFilter()"
+      (create)="onCreate()"
+    ></app-page-header>
+    <div class="projects-content">
+      <div class="table-container">
+        <table [@fadeInOnEnter]>
+          <thead>
+            <tr >
+              <th *ngFor="let col of tableColumns">
+                <ng-container *ngIf="col !== ''">
+                  <span (click)="sort(translatedColumn[col])" [class.active]="currentSortField === translatedColumn[col]">{{ col }}</span>
+                  <img [src]="currentSortField === translatedColumn[col] ? 'assets/images/down_active.png' : 'assets/images/down.png'">
+                </ng-container>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor="let project of projects | paginate: { itemsPerPage: pageSize, currentPage: currentPage }"> -->
+            <tr *ngFor="let project of projects">
+              <ng-container *ngFor="let col of tableColumns">
+                <td *ngIf="col !== '' && translatedColumn[col] !== 'id'" [appActiveColumn]="currentSortField === translatedColumn[col]">
+                  {{ getPropertyValue(project, translatedColumn[col]) }}
+                </td>
+              </ng-container>
+              <td>
+                <div class="action-icons">
+                  <img
+                    [src]="(project.permission === 'Admin' || project.permission === 'Editor') ? 'assets/images/edit.png' :
+                            project.permission === 'Visor' ? 'assets/images/view.png' : 'assets/images/view_deactive.png' "
+                    (click)="(project.permission === 'Admin' || project.permission === 'Editor') ? editProject(project.id) :
+                              project.permission === 'Visor' ? accessRequest(project.permission, project.id) : ''"
+                    [class.not-allowed]="project.permission === 'Sin permiso' "
+                    [tooltip]=" (project.permission === 'Admin' || project.permission === 'Editor') ? 'editar' :
+                                project.permission === 'Visor' ? 'ver' : 'sin acceso' "
+                    [arrowPos]="ArrowPosition.LEFT"
+                  >
+                  <img
+                    src="assets/images/world.png"
+                    (click)="downloadProject(project)"
+                    [tooltip]="'ver acceso'"
+                    [arrowPos]="ArrowPosition.CENTER"
+                  >
+                  <img
+                    [src]="project.permission === 'Admin' ? 'assets/images/trash.png' : 'assets/images/trash_deactive.png' "
+                    (click)="deleteProject(project)"
+                    [class.not-allowed]="project.permission !== 'Admin'"
+                    [tooltip]="'borrar'"
+                    [arrowPos]="ArrowPosition.RIGHT"
+                  >
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div> <!-- /table-container -->
+      <div class="paginator-wrapper">
+        <ngb-pagination
+          class="paginator"
+          [collectionSize]="totalPages"
+          [(page)]="page"
+          [pageSize]="pageSize"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+        />
+      </div>
+    </div> <!-- /main -->
+  </div> <!-- /content -->
+</div>
+
+<app-create-project-modal
+  [isSidebarCollapsed]="isSidebarCollapsed"
+  [isModalOpen]="isCreateProjectModalOpen"
+  (closeModalEvent)="closeCreateProjectModal()"
+></app-create-project-modal>

@@ -1,0 +1,69 @@
+@import 'src/styles/page.scss';
+
+.project-config-modal {
+  left: calc(100% - 800px);
+  background: $white;
+
+  .modal-content {
+    border-radius: 0;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background: $white;
+
+    .modal-header {
+      display: block;
+
+      .return {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 40px 0 40px 100px;
+
+        img {
+          width: 24px;
+        }
+      }
+    }
+
+    .modal-body {
+      .input-container {
+        margin-bottom: 26px;
+
+        label {
+          width: 130px;
+          margin-right: 11px;
+        }
+
+        input,
+        textarea {
+          background: #F2F2F2;
+        }
+
+        textarea {
+          height: 155px;
+        }
+
+        &.latlong {
+          padding: 0px 74px 0 148px;
+          gap: 29px;
+
+          .small-input {
+            label {
+              width: 54px;
+            }
+
+            input {
+              width: 196px;
+            }
+          }
+        }
+      }
+    }
+
+    .modal-footer {
+      label {
+        width: 130px;
+      }
+    }
+  }
+}

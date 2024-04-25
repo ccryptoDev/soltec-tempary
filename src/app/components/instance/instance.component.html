@@ -1,0 +1,240 @@
+<div class="page-container">
+  <div class="content" [ngClass]="{ 'content-expanded': isSidebarCollapsed }">
+    <app-breadcrumb
+      [breadcrumbs]="breadcrumbs"
+      [currentPath]="instance.name"
+      (shareBtnEvent)="onShare()"
+      (configBtnEvent)="onConfig()"
+    ></app-breadcrumb>
+
+    <div class="main">
+      <div *ngIf="!showingCreateForm" class="instance-data-form">
+        <div class="instance-files">
+          <div class="output">
+            <h4 class="regular-bold-text">Output</h4>
+            <ng-container *ngIf="!instanceFiles.length">
+              <p class="regular-text mt-35">
+                No hay ningún output generado para esta instancia. Para empezar, sube los archivos tipográficos y layout del proyecto.
+              </p>
+              <div class="mt-40">
+                <button
+                  class="btn-primary"
+                  (click)="startCalc()"
+                >
+                  Empezar cálculos
+                </button>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="instanceFiles.length">
+              <p class="regular-text mt-35">
+                He generado un documento de salida para esta instancia, lo puedes descargar aquí:
+              </p>
+              <div class="mt-40">
+                <button
+                  class="btn-primary"
+                  (click)="downloadDoc()"
+                >
+                  <img src="assets/images/download_doc.png">
+                  <span>Descargar el documento</span>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+          <div class="inputs">
+            <h4 class="regular-bold-text">Inputs</h4>
+            <p class="regular-text">Archivos tipográficos y layout de comunicaciones utilizados.</p>
+          </div>
+          <div class="files">
+            <div class="table-wrapper">
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th *ngFor="let col of tableColumns">
+                        <ng-container *ngIf="col !== ''">
+                          <span (click)="sort(translatedColumn[col])" [class.active]="currentSortField === translatedColumn[col]">{{ col }}</span>
+                          <img [src]="currentSortField === translatedColumn[col] ? 'assets/images/down_active.png' : 'assets/images/down.png'">
+                        </ng-container>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="instanceFiles.length">
+                    <tr *ngFor="let file of instanceFiles">
+                      <td [appActiveColumn]="currentSortField === 'fileName'">
+                        {{ file.fileName }}
+                      </td>
+                      <td [appActiveColumn]="currentSortField === 'createdAt'">
+                        {{ file.createdAt | date: 'yyyy-MM-dd' }}
+                      </td>
+                      <td>
+                        <img src="assets/images/download.png" (click)="downloadFile()">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div *ngIf="!instanceFiles.length" class="no-files regular-text">No hay ningún archivo subido para este proyecto</div>
+              </div>
+            </div>
+            <div class="paginator-wrapper">
+              <ngb-pagination
+                class="paginator"
+                [collectionSize]="totalPages"
+                [(page)]="page"
+              />
+            </div>
+          </div>
+        </div> <!-- /instance files -->
+
+        <div class="instance-map" [ngClass]="{ 'map-extended' : !isHistoryCollapsed }">
+          <img src="assets/images/history_collapse.png" class="cursor opacity-5" (click)="toggleHistoryCollapse()">
+          <h4 class="regular-bold-text">El mapa</h4>
+          <div *ngIf="coordinateSets.length" class="map">
+
+          </div>
+          <div *ngIf="!coordinateSets.length" class="no-map regular-text text-center">No he generado el mapa para esta instancia.</div>
+        </div>
+
+        <div class="instance-history" [ngClass]="{ 'map-extended': isHistoryCollapsed }">
+          <img src="assets/images/history_collapse.png" class="cursor opacity-5" (click)="toggleHistoryCollapse()">
+          <h4 class="regular-bold-text">El Historial</h4>
+          <div *ngIf="history.length" class="history-wrapper">
+
+          </div>
+          <div *ngIf="!history.length" class="no-history regular-text text-center">
+            No había ningún cambio en este proyecto.
+          </div>
+        </div>
+      </div> <!-- /data form -->
+
+      <div *ngIf="showingCreateForm" class="instance-create-form">
+        <div class="form-wrapper">
+          <div class="steps-wrapper">
+            <app-stepbar
+              [currentStep]="currentStep"
+              [steps]="steps"
+              [labels]="stepLabels"
+            ></app-stepbar>
+          </div>
+          <div class="step-content">
+
+            <div *ngIf="currentStep === 1" class="inner">                                            <!-- step 1 -->
+              <div class="step-title"><h4 class="regular-bold-text">Carga de archivos</h4></div>
+
+              <div class="upload-form">
+
+                <div (dragover)="handleDragOver($event)" (drop)="handleDrop($event, 'layout')"> <!-- layout file uploader -->
+                  <img class="indicator mt-50 mb-30"
+                    [src]="!layoutFileQueue.length ? 'assets/images/upload.png' : !layoutFileError ? 'assets/images/checked_green.png' : 'assets/images/error.png'"
+                  >
+                  <div class="file-description" [ngClass]="{'no-file': !layoutFileQueue.length}">
+                    <div>
+                      <ng-container *ngIf="!layoutFileQueue.length"> <!-- in case of no-file -->
+                        <p class="regular-text text-center">Arrastra y suelta <strong class="regular-bold-text">layout de comunicaciones</strong></p>
+                        <p class="regular-text text-center">(en formato .dxf)</p>
+                      </ng-container>
+                      <ng-container *ngIf="layoutFileQueue.length && !layoutFileError"> <!-- in case of upload successfully -->
+                        <p class="regular-text text-center">Los siguientes archivos se han cargado correctamente:</p>
+                      </ng-container>
+                      <ng-container *ngIf="layoutFileQueue.length && layoutFileError">  <!-- in case of error -->
+                        <p class="regular-text text-center">Tu archivo layout no está en el formato correcto. Súbelo en .dxf:</p>
+                      </ng-container>
+                    </div>
+                    <p class="no-display regular-text text-center">o</p>
+                  </div>
+                  <div class="file-queue" [class.mt-40]="layoutFileQueue.length">
+                    <div *ngFor="let file of layoutFileQueue" class="file-item">
+                      <img [src]="!file.error ? 'assets/images/file.png' : 'assets/images/file_error.png'">
+                      <div class="file-info" [ngClass]="{'error': file.error}">
+                        <div>
+                          <span class="regular-text">{{ file.file.name }}</span>
+                          <span class="regular-text small-text">{{ formatBytes(file.file.size) }}</span>
+                        </div>
+                        <progress [value]="file.progress" max="100" class="custom-progress"></progress>
+                      </div>
+                      <img class="file-remove cursor opacity-5" src="assets/images/file_remove.png" (click)="removeFile(file, 'layout')" >
+                    </div>
+                  </div>
+                  <div *ngIf="!layoutFileQueue.length" class="upload-action mt-35">
+                    <label for="layoutFileInput" class="upload-action regular-bold-text cursor opacity-5">Selecciona tu archivo comunicaciones</label>
+                    <input type="file" id="layoutFileInput" (change)="onSingleFileChange($event)" #layoutFileInput style="display: none" />
+                  </div>
+                </div> <!-- /layout file uploader -->
+
+                <div (dragover)="handleDragOver($event)" (drop)="handleDrop($event, 'typo')"> <!-- typograph file uploader -->
+                  <img class="indicator mt-50 mb-30"
+                    [src]="!typoFileQueue.length ? 'assets/images/upload.png' : !typoFileError ? 'assets/images/checked_green.png' : 'assets/images/error.png'"
+                  >
+                  <div class="file-description" [ngClass]="{'no-file': !typoFileQueue.length}">
+                    <div>
+                      <ng-container *ngIf="!typoFileQueue.length"> <!-- in case of no-file -->
+                        <p class="regular-text text-center">Arrastra y suelta tus <strong class="regular-bold-text">archivos de topografía</strong></p>
+                        <p class="regular-text text-center">(en formato .xls, .xlsx, .txt, .csv)</p>
+                      </ng-container>
+                      <ng-container *ngIf="typoFileQueue.length && !typoFileError"> <!-- in case of upload successfully -->
+                        <p class="regular-text text-center">Los siguientes archivos se han cargado correctamente:</p>
+                      </ng-container>
+                      <ng-container *ngIf="typoFileQueue.length && typoFileError">  <!-- in case of error -->
+                        <p class="regular-text text-center">Tu archivo topográfico no está en el formato correcto. Súbelo en .xls, .xlsx, .txt o .csv:</p>
+                      </ng-container>
+                    </div>
+                    <p class="no-display regular-text text-center">o</p>
+                  </div>
+                  <div class="file-queue" [class.mt-40]="typoFileQueue.length">
+                    <div *ngFor="let file of typoFileQueue" class="file-item">
+                      <img [src]="!file.error ? 'assets/images/file.png' : 'assets/images/file_error.png'">
+                      <div class="file-info" [ngClass]="{'error': file.error}">
+                        <div>
+                          <span class="regular-text">{{ file.file.name }}</span>
+                          <span class="regular-text small-text">{{ formatBytes(file.file.size) }}</span>
+                        </div>
+                        <progress [value]="file.progress" max="100" class="custom-progress"></progress>
+                      </div>
+                      <img class="file-remove cursor opacity-5" src="assets/images/file_remove.png" (click)="removeFile(file, 'typo')" >
+                    </div>
+                  </div>
+                  <div *ngIf="!typoFileQueue.length" class="upload-action mt-35">
+                    <label for="typoFileInput" class="upload-action regular-bold-text cursor opacity-5">Selecciona tus archivos de topografía</label>
+                    <input type="file" id="typoFileInput" (change)="onMultipleFileChange($event)" multiple #typoFileInput style="display: none" />
+                  </div>
+                </div> <!-- /typograph file uploader -->
+
+              </div>
+
+              <p class="other-action regular-text">Si prefieres usar archivos ya cargados en la otra instancia, <span class="regular-bold-text cursor opacity-5" (click)="openSelectInstanceModal()">elige la instancia</span></p>
+            </div>                                                          <!-- /step 1 -->
+
+            <div *ngIf="currentStep === 2" class="inner">                   <!-- step 2 -->
+
+            </div>                                                          <!-- /step 2 -->
+          </div>
+          <div class="step-actions">
+            <ng-container *ngIf="currentStep !== 1">
+              <button
+                class="btn-secondary"
+                (click)="goToPrevStep()"
+              >
+                <img src="assets/images/prev.png">
+                <span>VOLVER</span>
+              </button>
+            </ng-container>
+            <button
+              class="btn-secondary"
+              (click)="cancel()"
+            >
+              CANCELAR
+            </button>
+            <button
+              class="btn-primary"
+              (click)="goToNextStep()"
+              [class.disabled]="!canAdvanceToNextStep()"
+              [disabled]="!canAdvanceToNextStep()"
+            >
+              <span>SIGUENTE PASO</span>
+              <img src="assets/images/next.png">
+            </button>
+          </div>
+        </div>
+      </div> <!-- /create form -->
+    </div> <!-- /main -->
+  </div>
+</div>

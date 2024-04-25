@@ -1,0 +1,64 @@
+
+<div class="auth-container">
+  <div class="login-form auth-form">
+    <div class="inner mt-40 mb-40">
+      <div class="logo-title mb-5">
+        <img class="w100" src="assets/images/logo.png" alt="Soltec Logo">
+      </div>
+
+      <form (ngSubmit)="login()">
+        <div class="form-field mb-25" [class.mb-0]="!emailRequired && emailFormatError">
+          <app-auth-input
+            label="email"
+            name="email"
+            type="text"
+            [(value)]="email"
+            (emailChange)="updateEmailValidation()"
+            [error]="emailRequired || emailFormatError"
+          ></app-auth-input>
+          <div *ngIf="!emailRequired && emailFormatError" class="err-notif" [class.mt-10]="emailFormatError">
+            El formato del correo electrónico no es válido
+          </div>
+        </div>
+
+        <div class="form-field" [class.mt-15]="!emailRequired && emailFormatError">
+          <app-auth-input
+            label="Contraseña"
+            name="password"
+            type="password"
+            [(value)]="password"
+            (passwordChange)="updatePasswordValidation()"
+            [error]="passwordRequired"
+          ></app-auth-input>
+        </div>
+
+        <button
+          class="btn-auth mt-3"
+          [class.disabled]="emailRequired || emailFormatError || passwordRequired"
+          type="submit"
+        >
+          INICIAR SESIÓN
+        </button>
+
+        <div *ngIf="errorType && errorMsg[errorType]" class="err-message">
+          <div>
+            <img src="assets/images/error-icon.png">
+            <h2>{{ errorMsg[errorType].title }}</h2>
+          </div>
+          <p>{{ errorMsg[errorType].desc }}</p>
+        </div>
+
+        <p class="forgot-password mb-25 mt-25" (click)="redirectToForgotPassword()">¿Has olvidado tu contraseña?</p>
+
+        <button class="btn-social" type="button" (click)="social_login()">
+          <img src="assets/images/microsoft.png">
+          <span>Sign in with Microsoft</span>
+        </button>
+
+        <div class="auth-link">
+          ¿Todavía no tienes cuenta? <p (click)="redirectToSignup()">Regístrate aquí.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

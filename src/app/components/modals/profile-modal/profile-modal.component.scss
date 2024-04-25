@@ -1,0 +1,62 @@
+@import 'src/styles/page.scss';
+
+.profile-modal {
+  left: 243px;
+
+  &.sidebarCollapsed {
+    left: 60px;
+  }
+
+  .modal-header {
+    display: block;
+
+    .return {
+      display: flex;
+      align-items: center;
+      padding: 34px 0 34px 54px;
+
+      img {
+        width: 24px;
+      }
+
+      h4 {
+        font-size: 18px;
+      }
+    }
+
+    .profile-img {
+      padding: 0 0 39px 63px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      img {
+        width: 41px;
+      }
+
+      div > p {
+        margin: 0;
+      }
+
+      .profile-name {
+        font-size: 18px;
+      }
+
+      .img-upload {
+        color: $primary-color;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: normal;
+        cursor: pointer;
+        text-decoration-line: underline;
+      }
+    }
+  }
+}
+
+input[type="password"]:focus  {
+  border-color: #ccc !important;
+  border: none !important;
+  border: unset !important;
+}
+

@@ -1,0 +1,20 @@
+<div class="steps">
+  <div
+    class="circle regular-text"
+    *ngFor="let step of steps; let i = index"
+    [class.active]="i <= currentStep - 1"
+    [class.passed]="i < currentStep - 1"
+  >
+    <span>{{ step }}</span>
+    <img src="assets/images/checked-dark.png">
+    <div class="step-label">
+      <div class="label-wrapper">
+        <h4 class="regular-text">Paso {{ step }}</h4>
+        <p class="regular-text">{{ labels[step] }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="progress-bar">
+    <span class="indicator" [style.width]="(currentStep - 1) / (steps.length - 1) * 100 + '%'"></span>
+  </div>
+</div>

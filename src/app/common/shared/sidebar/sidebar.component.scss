@@ -1,0 +1,133 @@
+@import 'src/styles.scss';
+@import 'src/styles/_variables.scss';
+@import 'src/styles/constants.scss';
+
+.sidebar {
+  width: 243px;
+  height: 100%;
+  background: $secondary-color;
+  color: $white;
+  font-family: 'Calibri Regular';
+  position: fixed;
+  left: 0;
+  right: 0;
+  transition: width 0.6s ease, margin-left 0.6s ease;
+  z-index: 0;
+
+  .sidebar-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .sidebar-header {
+      height: 80px;
+      border-bottom: 1px solid #D9D9D9;
+      border-top-left-radius: 24px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+    }
+
+    .sidebar-content {
+      width: 100%;
+      flex-grow: 1;
+      padding: 20px 18px;
+
+      .menu {
+        cursor: pointer;
+
+        & > img {
+          width: 24px;
+        }
+
+        & > span {
+          font-size: 16px;
+          font-weight: 400;
+          margin-left: 6px;
+        }
+      }
+    }
+
+    .sidebar-footer {
+      height: 68px;
+      border-top: 1px solid #D9D9D9;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+
+      .footer-profile {
+        display: flex;
+        align-items: center;
+        width: 80%;
+        gap: 12px;
+        transition: display 0.8s ease;
+
+        & > img {
+          width: 35px;
+        }
+
+        & > div {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+
+
+          h2 {
+            margin-bottom: 0;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 22px;
+          }
+
+          p {
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 22px;
+          }
+        }
+      }
+
+      & > img {
+        width: 18px;
+      }
+    }
+  }
+}
+
+.sidebar.collapsed {
+  width: 60px;
+  transition: width 0.6s ease, margin-left 0.6s ease;
+
+  .sidebar-header {
+    padding: 0;
+    justify-content: center;
+
+    & img {
+      width: 45px;
+    }
+  }
+
+  .sidebar-content {
+    .menu {
+      span {
+        display: none;
+      }
+    }
+  }
+
+  .sidebar-footer {
+    height: 90px;
+
+    .footer-profile {
+      display: none !important;
+    }
+
+    .footer-icons {
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      gap: 5px;
+    }
+  }
+}

@@ -1,0 +1,90 @@
+<!-- <div *ngIf="isModalOpen" [@fadeInOnEnter] class="profile-modal" [class.sidebarCollapsed]> -->
+<div *ngIf="isModalOpen" [@fadeInOnEnter] [ngClass]="modalClasses">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="return">
+        <img src="assets/images/back.png" class="opacity-5 cursor" (click)="closeModal()">
+        <h4 class="regular-text">Configuración de perfil</h4>
+      </div>
+      <div class="profile-img">
+        <img src="assets/images/no-profile.png">
+        <div>
+          <p class="profile-name regular-text">{{ userData.firstName }} {{ userData.lastName }}</p>
+          <p class="img-upload">Cambiar foto de perfil</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="input-container">
+        <label for="firstName">Nombre</label>
+        <input type="text" id="firstName" [(ngModel)]="firstName" />
+      </div>
+      <div class="input-container mb-20">
+        <label for="lastName">Apellido</label>
+        <input type="text" id="lastName" [(ngModel)]="lastName" />
+      </div>
+      <div class="input-container bio mb-30">
+        <label for="bio">Bio</label>
+        <textarea id="bio" [(ngModel)]="bio"></textarea>
+      </div>
+      <div class="input-container email mb-50">
+        <label for="email">Email</label>
+        <input type="text" id="email" [(ngModel)]="email" disabled />
+      </div>
+      <div class="input-container password mb-50">
+        <label for="oldPassword">Cambiar<br />constraseña</label>
+        <div class="pass-field">
+          <div class="old-pass mb-25">
+            <label for="old-pass" class="regular-text small-text">Contraseña antigua</label>
+            <div class="password-wrapper">
+              <input
+                type="{{ showOldPassword ? 'text' : 'password' }}"
+                id="oldPassword"
+                class="regular-text"
+                [(ngModel)]="oldPassword"
+              />
+              <i class="toggle-password" (click)="toggleOldPasswordVisibility()">
+                {{ showOldPassword ? 'visibility_off' : 'visibility' }}
+              </i>
+            </div>
+          </div>
+          <div class="new-pass">
+            <label for="new-pass" class="regular-text small-text">Contraseña nueva</label>
+            <div class="password-wrapper">
+              <input
+                type="{{ showNewPassword ? 'text' : 'password' }}"
+                id="newPassword"
+                class="regular-text"
+                [(ngModel)]="newPassword"
+              />
+              <i class="toggle-password" (click)="toggleNewPasswordVisibility()">
+                {{ showNewPassword ? 'visibility_off' : 'visibility' }}
+              </i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <label for="empty"></label>
+      <div class="footer-button">
+        <button
+          class="btn-secondary"
+          (click)="exitWithoutSave()"
+        >
+          SALIR SIN GUARDAR
+        </button>
+        <button
+          class="btn-primary"
+          (click)="exitWithSave()"
+        >
+          GUARDAR DATOS
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isModalOpen"></div>

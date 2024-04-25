@@ -1,0 +1,68 @@
+
+<div *ngIf="isModalOpen" [@fadeInOnEnter] class="project-config-modal custom-modal-full-height">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="return">
+        <img src="assets/images/back.png" class="opacity-5 cursor" (click)="closeModal()">
+        <h4 class="regular-bold-text">Configuración de proyecto</h4>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="input-container name">
+        <label for="ame">Nombre</label>
+        <input type="text" id="name" [(ngModel)]="name" />
+      </div>
+      <div class="input-container description">
+        <label for="description">Descripción</label>
+        <textarea id="description" [(ngModel)]="description"></textarea>
+      </div>
+      <div class="input-container latlong">
+        <div class="small-input">
+          <label for="latitude">Latitud</label>
+          <input type="text" id="latitude" [(ngModel)]="latitude" />
+        </div>
+        <div class="small-input">
+          <label for="longitude">Longitud</label>
+          <input type="text" id="longitude" [(ngModel)]="longitude" />
+        </div>
+      </div>
+      <div class="input-container plantType">
+        <label for="plantType">Tipo de planta</label>
+        <input type="text" id="plantType" [(ngModel)]="plantType" />
+      </div>
+      <div class="input-container trackerType">
+        <label for="trackerType">Tipo de trackers</label>
+        <input type="text" id="trackerType" [(ngModel)]="trackerType" />
+      </div>
+      <div class="input-container power">
+        <label for="power">Potencia</label>
+        <input type="text" id="power" [(ngModel)]="power" />
+      </div>
+      <div class="input-container electronicType">
+        <label for="electronicType">Tipo de electrónica</label>
+        <input type="text" id="electronicType" [(ngModel)]="electronicType" />
+      </div>
+    </div>
+
+    <div class="modal-footer mt-25">
+      <label for="empty"></label>
+      <div class="footer-button">
+        <button
+          class="btn-secondary"
+          (click)="exitWithoutSave()"
+        >
+          SALIR SIN GUARDAR
+        </button>
+        <button
+          class="btn-primary"
+          (click)="exitWithSave()"
+        >
+          GUARDAR DATOS
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isModalOpen"></div>

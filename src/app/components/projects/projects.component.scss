@@ -1,0 +1,118 @@
+@import 'src/styles/page.scss';
+
+.projects-content {
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #777;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+
+    tr {
+      border: 1px solid $third-color;
+    }
+
+    thead tr {
+      border-radius: 8px;
+
+      span {
+        cursor: pointer;
+        transition: opacity 0.5 ease;
+
+        &:hover {
+          opacity: 0.6;
+        }
+
+        &.active {
+          color: $secondary-color;
+          font-family: "Calibri Bold";
+        }
+      }
+
+      img {
+        margin-left: 3px;
+      }
+    }
+
+    th, td {
+      padding: 11px 18px;
+      text-align: left;
+    }
+
+    th {
+      background: #F6F8FA;
+    }
+
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 15%;
+      padding: 11px 24px;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 20%;
+    }
+
+    th:nth-child(3),
+    td:nth-child(3),
+    th:nth-child(4),
+    td:nth-child(4) {
+      width: 15%;
+    }
+
+    th:nth-child(5),
+    td:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(6) {
+      width: 12.5%;
+    }
+
+    th:nth-child(7),
+    td:nth-child(7) {
+      width: 10%;
+      padding: 11px 24px;
+    }
+
+    .action-icons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+
+    tbody tr {
+      td.active {
+        color: $secondary-color;
+        font-family: "Calibri Bold";
+      }
+
+      img {
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          opacity: 0.5;
+        }
+
+        &.not-allowed {
+          cursor: not-allowed;
+          transition: none;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+

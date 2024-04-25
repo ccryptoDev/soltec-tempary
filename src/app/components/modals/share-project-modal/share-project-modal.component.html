@@ -1,0 +1,104 @@
+<div class="modal-header">
+  <div class="header-title">
+	  <h4 class="modal-title regular-bold-text">
+      <ng-container [ngSwitch]="defaultPermission">
+        <ng-container *ngSwitchCase="'Admin'">Compartir proyecto</ng-container>
+        <ng-container *ngSwitchCase="'Editor'">Tu acceso es: </ng-container>
+        <ng-container *ngSwitchCase="'Visor'">Tu acceso es: </ng-container>
+        <ng-container *ngSwitchCase="'Sin permiso'">No tienes acceso</ng-container>
+      </ng-container>
+    </h4>
+    <ng-container *ngIf="defaultPermission === 'Editor' || defaultPermission === 'Visor'">
+      <div>
+        <img [src]="defaultPermission === 'Editor' ? 'assets/images/edit_deactive.png' : 'assets/images/view_deactive.png'">
+        <span class="regular-bold-text">{{ defaultPermission }}</span>
+      </div>
+    </ng-container>
+  </div>
+  <p class="modal-description regular-text small-text">
+    <ng-container [ngSwitch]="defaultPermission">
+      <ng-container *ngSwitchCase="'Admin'">Dale a los miembros de tu equipo acceso al proyecto y comienza a colaborar.</ng-container>
+      <ng-container *ngSwitchCase="'Editor'">No puedes añadir usuarios ni cambiar permisos. Si lo necesitas, solicita el acceso de admin.</ng-container>
+      <ng-container *ngSwitchCase="'Visor'">No puedes editar el proyecto. Si lo necesitas, solicita acceso de editor.</ng-container>
+      <ng-container *ngSwitchCase="'Sin permiso'">No tienes acceso al proyecto. Si deseas ver o editar el proyecto, solicita el acceso.</ng-container>
+    </ng-container>
+  </p>
+  <img
+    src="assets/images/close.png"
+    class="close opacity-5"
+    (click)="onClose()"
+  >
+</div>
+<div class="modal-body">
+  <div class="share-form">
+    <ng-container *ngIf="defaultPermission === 'Admin'">                    <!-- only admin can share -->
+      <div class="email-input">
+        <app-auth-input
+          label="Email"
+          name="email"
+          type="text"
+          [(value)]="email"
+          (emailChange)="updateEmailValidation()"
+          [error]="emailRequired || emailFormatError"
+        ></app-auth-input>
+        <div *ngIf="!emailRequired && emailFormatError" class="err-notif regular-text small-text">
+          El formato del correo electrónico no es válido
+        </div>
+        <div class="select-permission">
+          <app-custom-dropdown
+            [items]="permissions"
+            defaultItem="Visor"
+            (itemSelected)="onItemSelected($event)"
+          ></app-custom-dropdown>
+        </div>
+      </div>
+      <button
+        class="btn-primary regular-bold-text"
+        [class.disabled]="emailRequired || emailFormatError"
+        (click)="onShare()"
+      >
+        Compartir
+      </button>
+    </ng-container>
+    <ng-container *ngIf="defaultPermission !== 'Admin'">          <!-- request access in case of no Admin -->
+      <div class="no-admin">
+        <button
+          class="btn-primary regular-bold-text"
+          (click)="requestAccess()"
+        >
+          <ng-container [ngSwitch]="defaultPermission">
+            <ng-container *ngSwitchCase="'Editor'">Solicitar acceso de admin</ng-container>
+            <ng-container *ngSwitchCase="'Visor'">Solicitar acceso de editor o admin</ng-container>
+            <ng-container *ngSwitchCase="'Sin permiso'">Solicitar acceso</ng-container>
+          </ng-container>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+  <div class="shared-members mt-40">
+    <h4 class="regular-text">Miembros</h4>
+    <ng-container *ngIf="projectMembers.length">
+      <div class="members mt-20 mb-20">
+        <div class="member" *ngFor="let member of projectMembers">
+          <div class="profile">
+            <img [src]="member.profileImg !== '' ? member.profileImg : 'assets/images/no-profile.png' ">
+            <p class="regular-text">{{ member.firstName }} {{ member.lastName }}</p>
+          </div>
+          <div class="permission">
+            <ng-container *ngIf="defaultPermission === 'Admin'">
+              <app-permission-dropdown
+                [permissions]="permissions"
+                [defaultPermission]="member.permission"
+                (permissionChanged)="permissionChanged($event)"
+              ></app-permission-dropdown>
+            </ng-container>
+            <ng-container *ngIf="defaultPermission !== 'Admin'">
+              {{ member.permission }}
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+</div>

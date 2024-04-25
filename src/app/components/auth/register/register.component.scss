@@ -1,0 +1,32 @@
+@import 'src/styles/auth.scss';
+
+.register-form {
+  width: 590px;
+
+  .inner {
+    width: 100%;
+    max-width: 460px;
+  }
+}
+
+.success-form {
+  width: 424px;
+  height: 408px;
+
+  .inner {
+    width: 100%;
+    height: 100%;
+    max-width: 325px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    .success-msg {
+      font-size: 16px;
+      line-height: 20px;
+      color: #0A2240;
+      text-align: center;
+    }
+  }
+}

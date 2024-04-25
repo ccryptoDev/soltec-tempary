@@ -1,0 +1,130 @@
+
+
+<div class="modal-header">
+	<h4 class="modal-title regular-bold-text">Elige instancia</h4>
+  <img
+    src="assets/images/close.png"
+    class="close cursor opacity-5"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+</div>
+
+<div class="modal-body">
+  <div class="table-wrapper">
+    <ng-container *ngIf="!isFileForm">
+      <ng-container *ngIf="instances.length">
+        <table [@fadeInOnEnter]>
+          <thead>
+            <tr >
+              <th></th>
+              <th class="active regular-bold-text">
+                Nombre
+              </th>
+              <th>
+                Decripción
+              </th>
+              <th>
+                Creado
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let instance of instances">
+              <td width="10%">
+                <div class="custom-radio">
+                  <input type="radio" name="selectedInstance" (change)="toggleInstanceId($event, instance.id)">
+                </div>
+              </td>
+              <td width="20%" class="active">
+                <div class="instance-title regular-bold-text">{{ instance.name }}</div>
+              </td>
+              <td width="35%">
+                {{ instance.description }}
+              </td>
+              <td width="35%">
+                {{ instance.createdDate }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <ng-container *ngIf="!instances.length">
+        <div class="no-instance regular-text">
+          No hay ninguna instancia creada para este proyecto.
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="isFileForm">
+      <ng-container *ngIf="instanceFiles.length">
+        <table [@fadeInOnEnter]>
+          <thead>
+            <tr >
+              <th>
+                <div class="custom-checkbox">
+                  <input type="checkbox" (change)="checkAllFiles($event)">
+                </div>
+              </th>
+              <th class="active regular-bold-text">
+                Nombre
+              </th>
+              <th>
+                Creado
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of instanceFiles">
+              <td width="10%">
+                <div class="custom-checkbox">
+                  <input
+                    type="checkbox"
+                    name="selectedFile"
+                    [checked]="selectedFiles.includes(file.id)"
+                    (change)="toggleFileId($event, file.id)"
+                  >
+                </div>
+              </td>
+              <td width="50%" class="active regular-bold-text">
+                <div class="file-title">{{ file.fileName }}</div>
+              </td>
+              <td width="40%">
+                {{ file.createdAt| date: 'dd-MM-yyyy' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <ng-container *ngIf="!instanceFiles.length">
+        <div class="no-instance regular-text">
+          No hay ninguna instancia creada para este proyecto.
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <div class="button-wrapper">
+    <ng-container *ngIf="!isFileForm">
+      <button
+        class="btn-primary"
+        (click)="onSelectInstance()"
+        [class.disabled]="!selectedInstance"
+        [disabled]="!selectedInstance"
+      >
+        ELEGIR INSTANCIA
+      </button>
+    </ng-container>
+    <ng-container *ngIf="isFileForm">
+      <button
+        class="btn-primary"
+        (click)="onSelectFiles()"
+        [class.disabled]="!selectedFiles.length"
+        [disabled]="!selectedFiles.length"
+      >
+        ELEGIR ARCHIVOS
+      </button>
+    </ng-container>
+  </div>
+</div>

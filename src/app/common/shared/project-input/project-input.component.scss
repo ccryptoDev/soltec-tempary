@@ -1,0 +1,33 @@
+@import 'src/styles.scss';
+@import 'src/styles/_variables.scss';
+
+.input-container {
+  position: relative;
+  width: 100%;
+
+  .input-field {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    color: #333;
+    border: 1px solid $third-color;
+    padding: 16px;
+    border-radius: 8px;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 5px #E5E5E550;
+    }
+
+    &:-internal-autofill-selected {
+      appearance: menulist-button;
+      background-image: none !important;
+      background-color: transparent !important;
+      color: fieldtext !important;
+    }
+
+    &::placeholder {
+      color: $third-color;
+    }
+  }
+}

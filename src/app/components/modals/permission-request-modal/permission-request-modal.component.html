@@ -1,0 +1,30 @@
+<div class="modal-header">
+	<h4 class="modal-title regular-bold-text">Solicitar permiso</h4>
+  <p class="modal-description regular-text small-text">
+    Para este proyecto, necesitas permiso. Solicítalo al administrador del proyecto
+  </p>
+  <img
+    src="assets/images/close.png"
+    class="close opacity-5"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+</div>
+<div class="modal-body">
+  <app-custom-dropdown
+    [items]="permissions"
+    [defaultItem]="currentPermission"
+    (itemSelected)="onItemSelected($event)"
+  ></app-custom-dropdown>
+  <textarea
+    [(ngModel)]="description"
+    class="regular-text"
+    placeholder="Descripción (opcional)"
+  ></textarea>
+	<button
+    type="button"
+    class="btn-primary"
+    (click)="sendRequest()"
+  >
+    SOLICITAR
+  </button>
+</div>

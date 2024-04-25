@@ -1,0 +1,40 @@
+<div class="modal-header">
+	<h4 class="modal-title regular-bold-text">Nueva instancia</h4>
+  <img
+    src="assets/images/close.png"
+    class="close opacity-5"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+</div>
+<div class="modal-body">
+  <div class="input-container name">
+    <label for="name" class="regular-text">Nombre</label>
+    <app-project-input
+      name="name"
+      placeholder="Nombre de la insatncia"
+      [(value)]="name"
+      (valueChange)="onNameChange($event)"
+    ></app-project-input>
+  </div>
+  <div class="input-container description">
+    <label for="description" class="regular-text">Descripción</label>
+    <textarea
+      id="description"
+      placeholder="Descripción de la instancia "
+      [(ngModel)]="description"
+      (ngModelChange)="onDescriptionChange($event)"
+    ></textarea>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="footer-button">
+    <button
+      type="button"
+      class="btn-primary"
+      [class.disabled]="nameRequired || descriptionRequired"
+      (click)="createInstance()"
+    >
+      CREAR INSTANCIA
+    </button>
+  </div>
+</div>

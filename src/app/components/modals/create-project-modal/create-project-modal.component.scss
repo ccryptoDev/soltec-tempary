@@ -1,0 +1,108 @@
+@import 'src/styles/page.scss';
+
+.create-project-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 640px;
+  height: 100vh;
+  background: none;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .modal-content {
+    width: 100%;
+    height: calc(100% - 36px);
+    border-radius: 10px;
+    border: 1px solid $third-color;
+    background: $white;
+
+    .modal-header {
+      position: relative;
+      padding: 29px 0 29px 43px;
+      border-bottom: 1px solid $third-color;
+
+      img {
+        position: absolute;
+        top: 12px;
+        right: 18px;
+      }
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: none;
+
+      .input-container {
+        width: 100%;
+        max-width: 420px;
+        margin-bottom: 12px;
+
+        label {
+          display: block;
+          color: $secondary-color;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 22px;
+          margin-bottom: 8px;
+        }
+
+        textarea {
+          width: 100%;
+          height: 100px;
+          padding: 16px;
+          border-radius: 8px;
+          box-sizing: border-box;
+          border: 1px solid $third-color;
+          transition: border 0.3s;
+          color: #333;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 22px;
+
+          &:focus, &:ng-touched  {
+            border-color: #ccc;
+            border: unset !important;
+          }
+
+          &::placeholder {
+            color: $third-color;
+          }
+        }
+
+        &.latlong {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          input {
+            width: 196px;
+          }
+        }
+      }
+    }
+
+    .modal-footer {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .footer-button {
+        width: 420px;
+
+        button {
+          float: right;
+          width: 228px;
+          height: 56px;
+        }
+      }
+    }
+  }
+}

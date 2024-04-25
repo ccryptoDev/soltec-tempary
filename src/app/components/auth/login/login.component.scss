@@ -1,0 +1,58 @@
+
+@import 'src/styles/auth.scss';
+
+.login-form {
+  width: 590px;
+
+  .inner {
+    max-width: 468px;
+    width: 100%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    .btn-social {
+      height: 50px;
+      background-color: $white;
+      border: 1px solid $border;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+
+      span {
+        color: #5E5E5E;
+        line-height: 19px;
+        font-size: 15px;
+        font-family: 'Calibri regular';
+        font-weight: 600;
+      }
+
+      &:hover {
+        background: $btn-activated;
+        transition: width 1s ease;
+      }
+    }
+
+    .forgot-password {
+      text-align: right;
+      text-decoration: underline;
+      font-family: 'Calibri Bold';
+      color: $primary-color;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.7;
+        transition: 0.8s ease;
+      }
+    }
+
+    .err-message ~ .forgot-password {
+      margin-top: 15px;
+    }
+  }
+}

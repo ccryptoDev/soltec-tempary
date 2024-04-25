@@ -1,0 +1,16 @@
+@import "src/styles/page.scss";
+
+textarea {
+  width: 100%;
+  height: 155px;
+  margin-top: 14px;
+  resize: vertical;
+  padding: 16px;
+  border: 1px solid $third-color;
+  border-radius: 8px;
+  color: $third-color;
+
+  &::placeholder {
+    color: $third-color;
+  }
+}

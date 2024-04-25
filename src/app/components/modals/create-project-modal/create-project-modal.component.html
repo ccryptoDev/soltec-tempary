@@ -1,0 +1,100 @@
+
+<div *ngIf="isModalOpen" [@fadeInOnEnter] class="create-project-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <img src="assets/images/close.png" class="opacity-5 cursor" (click)="closeModal()">
+      <h4 class="regular-bold-text">Nuevo proyecto</h4>
+    </div>
+
+    <div class="modal-body mt-25">
+      <div class="input-container name">
+        <label for="name">Nombre</label>
+        <app-project-input
+          name="name"
+          placeholder="Nombre del proyecto"
+          [(value)]="name"
+          (valueChange)="onInputChange($event, 'name')"
+        ></app-project-input>
+      </div>
+      <div class="input-container description">
+        <label for="description">Descripción</label>
+        <textarea
+          id="description"
+          placeholder="Descripción del proyecto"
+          [(ngModel)]="description"
+          (ngModelChange)="onDescriptionChange($event)"
+        ></textarea>
+      </div>
+      <div class="input-container latlong">
+        <div class="small-input">
+          <label for="latitude">Latitud</label>
+          <app-project-input
+            name="latitude"
+            placeholder="Latitud del proyecto"
+            [(value)]="latitude"
+            (valueChange)="onInputChange($event, 'latitude')"
+          ></app-project-input>
+        </div>
+        <div class="small-input">
+          <label for="longitude">Longitud</label>
+          <app-project-input
+            name="longitude"
+            placeholder="Longitud del proyecto"
+            [(value)]="longitude"
+            (valueChange)="onInputChange($event, 'longitude')"
+          ></app-project-input>
+        </div>
+      </div>
+      <div class="input-container plantType">
+        <label for="plantType">Tipo de planta</label>
+        <app-project-input
+          name="plantType"
+          placeholder="Tipo de planta"
+          [(value)]="plantType"
+          (valueChange)="onInputChange($event, 'plantType')"
+        ></app-project-input>
+      </div>
+      <div class="input-container trackerType">
+        <label for="trackerType">Tipo de trackers</label>
+        <app-project-input
+          name="trackerType"
+          placeholder="Tipo de trackers"
+          [(value)]="trackerType"
+          (valueChange)="onInputChange($event, 'trackerType')"
+        ></app-project-input>
+      </div>
+      <div class="input-container power">
+        <label for="power">Potencia</label>
+        <app-project-input
+          name="power"
+          placeholder="Potencia de la planta"
+          [(value)]="power"
+          (valueChange)="onInputChange($event, 'power')"
+        ></app-project-input>
+      </div>
+      <div class="input-container electronicType">
+        <label for="electronicType">Tipo de electrónica</label>
+        <app-project-input
+          name="electronicType"
+          placeholder="Tipo de electrónica"
+          [(value)]="electronicType"
+          (valueChange)="onInputChange($event, 'electronicType')"
+        ></app-project-input>
+      </div>
+    </div>
+
+    <div class="modal-footer mt-10">
+      <div class="footer-button">
+        <button
+          class="btn-primary"
+          [class.disabled]="!allValid"
+          (click)="createProject()"
+        >
+          CREAR PROYECTO
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isModalOpen"></div>

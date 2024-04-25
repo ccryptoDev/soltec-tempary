@@ -1,0 +1,168 @@
+<div class="page-container">
+  <div class="content" [ngClass]="{ 'content-expanded': isSidebarCollapsed }">
+    <app-breadcrumb
+      [breadcrumbs]="breadcrumbs"
+      [currentPath]="projectDetails.name"
+      (shareBtnEvent)="openProjectShareModal()"
+      (configBtnEvent)="openProjectConfigModal()"
+    ></app-breadcrumb>
+
+    <div class="main">
+      <div class="page-left-content">
+        <!-- project details general information -->
+        <div class="general-inform">
+          <h4 class="regular-bold-text">Ajustes generales</h4>
+          <div class="details mt-30">
+            <ng-container *ngFor="let key of generalInfoOrder">
+              <div *ngIf="projectDetails[key] !== undefined" class="detail-block">
+                <div class="detail-key mb-25">
+                  <h4 class="regular-text">{{ translatedGIColumn[key] }}</h4>
+                  <img src="assets/images/edit.png" class="cursor opacity-5" (click)="editProjectDetail(key, projectDetails[key])">
+                </div>
+                <div class="detail-value regular-bold-text mb-35">{{ projectDetails[key] }}</div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- /project details general information -->
+
+        <div class="project-instance">
+          <div class="table-wrapper">
+            <!-- page header -->
+            <app-page-header
+              pageName="Instancias"
+              description="Descripción de la instancia"
+              (search)="onSearch($event)"
+              (filter)="onFilter()"
+              (create)="onCreate()"
+            ></app-page-header>
+            <!-- /page header -->
+
+            <ng-container *ngIf="instances.length">
+              <div class="table-container">
+                <table [@fadeInOnEnter]>
+                  <thead>
+                    <tr >
+                      <th>
+                        <div class="custom-checkbox">
+                          <input type="checkbox" (change)="checkAllInstances($event)">
+                        </div>
+                      </th>
+                      <th *ngFor="let col of tableColumns">
+                        <ng-container *ngIf="col !== ''">
+                          <span (click)="sort(translatedColumn[col])" [class.active]="currentSortField === translatedColumn[col]">{{ col }}</span>
+                          <img [src]="currentSortField === translatedColumn[col] ? 'assets/images/down_active.png' : 'assets/images/down.png'">
+                        </ng-container>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- <tr *ngFor="let instance of instances | paginate: { itemsPerPage: pageSize, currentPage: currentPage }"> -->
+                    <tr *ngFor="let instance of instances">
+                      <td>
+                        <div class="custom-checkbox">
+                          <input
+                            type="checkbox"
+                            [checked]="selectedInstances.includes(instance.id)"
+                            (change)="toggleInstanceSelection($event, instance.id)"
+                          >
+                        </div>
+                      </td>
+                      <ng-container *ngFor="let col of tableColumns">
+                        <td
+                          *ngIf="col !== '' && translatedColumn[col] !== 'id'"
+                          [appActiveColumn]="currentSortField === translatedColumn[col]"
+                          [ngClass]="translatedColumn[col] === 'status' && instance.status === 'Terminado' ? 'completed' : 'incompleted'"
+                        >
+                          <ng-container *ngIf="translatedColumn[col] === 'status'">
+                            <div>
+                              <img [src]="instance.status === 'Terminado' ? 'assets/images/completed.png' : 'assets/images/in_progress.png'">
+                              <span>{{ getPropertyValue(instance, translatedColumn[col]) }}</span>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="translatedColumn[col] !== 'status'">
+                            {{ getPropertyValue(instance, translatedColumn[col]) }}
+                          </ng-container>
+                        </td>
+                      </ng-container>
+                      <td>
+                        <img
+                          [src]="(instance.status === 'Terminado') ? 'assets/images/edit.png' : 'assets/images/edit_deactive.png' "
+                          (click)="(instance.status === 'Terminado') ? editInstance(instance.id) : '' "
+                          [class.not-allowed]="instance.status !== 'Terminado'"
+                        >
+                        <img
+                          [src]="instance.status === 'Terminado' ? 'assets/images/download.png' : 'assets/images/download_deactive.png' "
+                          (click)="downloadInstance(instance.id)"
+                          [class.not-allowed]="instance.status !== 'Terminado'"
+                        >
+                        <img
+                          [src]="instance.status === 'Terminado' ? 'assets/images/trash.png' : 'assets/images/trash_deactive.png' "
+                          (click)="deleteInstance(instance.id)"
+                          [class.not-allowed]="instance.status !== 'Terminado'"
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="!instances.length">
+              <div class="no-instance regular-text">
+                No hay ninguna instancia creada para este proyecto.
+              </div>
+            </ng-container>
+          </div> <!-- /table wrapper -->
+
+          <div class="paginator-wrapper">
+            <ngb-pagination
+              class="paginator"
+              [collectionSize]="totalPages"
+              [(page)]="page"
+              [pageSize]="pageSize"
+              [maxSize]="5"
+              [rotate]="true"
+              [boundaryLinks]="true"
+            />
+          </div>
+        </div> <!-- /project instance -->
+      </div> <!-- /page left content -->
+
+      <div class="page-right-content">
+        <h2 class="regular-bold-text text-center">El Historial</h2>
+        <div class="history-wrapper">
+          <div *ngIf="histories.length" class="history-block">
+            <div *ngFor="let history of histories" class="history">
+              <div class="user-inform">
+                <h4 class="regular-bold-text">{{ history.user }}</h4>
+                <p class="regular-text small-text">{{ history.changes }}</p>
+              </div>
+              <div class="history-date">
+                <p class="regular-text">{{ history.date | date: 'yy-mm-dd' }}</p>
+                <p class="regular-text">{{ history.date | date: 'HH-mm' }}</p>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!histories.length" class="no-history">
+            No había ningún cambio en este proyecto.
+          </div>
+          <div class="paginator-wrapper">
+            <ngb-pagination
+              class="paginator"
+              [collectionSize]="his_totalPages"
+              [(page)]="his_page"
+            />
+          </div>
+        </div>
+      </div> <!-- /page right content -->
+
+  </div>
+</div>
+
+<app-project-config-modal
+  [projectId]="projectId"
+  [isSidebarCollapsed]="isSidebarCollapsed"
+  [isModalOpen]="isProjectConfigModalOpen"
+  [projectDetail]="projectDetails"
+  (closeModalEvent)="closeProjectConfigModal()"
+></app-project-config-modal>

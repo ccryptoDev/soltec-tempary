@@ -1,0 +1,30 @@
+<div class="breadcrumb">
+  <div class="breadcrumb-link">
+    <img src="assets/images/home.png" >
+    <ng-container *ngFor="let breadcrumb of breadcrumbs; let last = last">
+      <ng-container *ngIf="breadcrumb.url; else nonClickable">
+        <img src="assets/images/breadcrumb.png">
+        <a [routerLink]="breadcrumb.url" class="regular-text opacity-5">{{ breadcrumb.label }}</a>
+      </ng-container>
+      <ng-template #nonClickable>
+        <img src="assets/images/breadcrumb_deactive.png">
+        <span class="regular-text">{{ breadcrumb.label }}</span>
+      </ng-template>
+    </ng-container>
+  </div>
+  <div class="breadcrumb-detail">
+    <h4 class="regular-bold-text">{{ currentPath }}</h4>
+    <!-- share button -->
+    <img
+      src="assets/images/branch.png"
+      class="opacity-5 cursor"
+      (click)="onShareBtn()"
+    >
+    <!-- config button -->
+    <img
+      src="assets/images/gear_orange.png"
+      class="opacity-5 cursor"
+      (click)="onConfigBtn()"
+    >
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="permission-dropdown">
+  <div class="dropdown-header">
+    <div class="selected-item">{{ changedPermission }}</div>
+    <img
+      src="assets/images/down-arrow.png"
+      class="arrow-icon"
+      (click)="toggleDropdown()"
+      [class.arrow-reversed]="isArrowReversed"
+    >
+  </div>
+  <div class="dropdown-list" *ngIf="isOpen">
+    <div *ngFor="let item of permissions" (click)="selectItem(item)" [class.selected]="item === changedPermission">
+      <span class="check-icon" *ngIf="item === changedPermission">&#10004;</span>
+      {{ item }}
+    </div>
+    <div
+      (click)="selectItem('remove permission')"
+      class="permission-remove"
+    >
+      Eliminar acceso
+    </div>
+  </div>
+</div>
+

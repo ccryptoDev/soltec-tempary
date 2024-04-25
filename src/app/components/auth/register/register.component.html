@@ -1,0 +1,106 @@
+
+<div class="auth-container">
+  <div *ngIf="!registerSuccess; else successForm" class="register-form auth-form">
+    <div class="inner mt-40 mb-40">
+      <div class="logo-title mb-5">
+        <img class="w100" src="assets/images/logo.png" alt="Soltec Logo">
+      </div>
+
+      <div class="form-field mb-20">
+        <app-auth-input
+          label="Nombre(s)"
+          name="firstname"
+          type="text"
+          [(value)]="firstName"
+          (firstnameChange)="updateFirstnameValidation()"
+          [error]="firstnameRequired"
+        ></app-auth-input>
+      </div>
+
+      <div class="form-field mb-20">
+        <app-auth-input
+          label="Apellido(s)"
+          name="lastname"
+          type="text"
+          [(value)]="lastName"
+          (lastnameChange)="updateLastnameValidation()"
+          [error]="lastnameRequired"
+        ></app-auth-input>
+      </div>
+
+      <div class="form-field email-field mb-20" [class.mb-0]="!emailRequired && emailFormatError">
+        <app-auth-input
+          label="Email"
+          name="email"
+          type="email"
+          [(value)]="email"
+          (emailChange)="updateEmailValidation()"
+          [error]="emailRequired || emailFormatError"
+        ></app-auth-input>
+        <div *ngIf="!emailRequired && emailFormatError" class="err-notif" [class.mt-10]="emailFormatError">El formato del correo electrónico no es válido</div>
+      </div>
+
+      <div class="form-field password-field" [class.mb-20]="!password" [class.mt-15]="!emailRequired && emailFormatError">
+        <app-auth-input
+          label="Contaseña"
+          name="password"
+          type="password"
+          [(value)]="password"
+          (passwordChange)="updatePasswordValidation()"
+          [error]="passwordRequired || passwordFormatError"
+        ></app-auth-input>
+
+        <!-- password validation -->
+        <div *ngIf="password" class="password-validation mt-10">
+          <div class="validation-item" [class.checked]="passwordValidation.upperAndlowcase">
+            <img [src]="passwordValidation.upperAndlowcase ? 'assets/images/checked.png' : 'assets/images/minus.png'">
+            <span>Incluir minúsculas y mayúsculas.</span>
+          </div>
+          <div class="validation-item" [class.checked]="passwordValidation.numberOrSymbol">
+            <img [src]="passwordValidation.numberOrSymbol ? 'assets/images/checked.png' : 'assets/images/minus.png'">
+            <span>Incluir al menos un número o símbolo.</span>
+          </div>
+          <div class="validation-item" [class.checked]="passwordValidation.minLength">
+            <img [src]="passwordValidation.minLength ? 'assets/images/checked.png' : 'assets/images/minus.png'">
+            <span>Tener al menos 10 caracteres.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- error notification -->
+      <div *ngIf="errorType && errorMsg[errorType]" class="err-message">
+        <div>
+          <img src="assets/images/error-icon.png">
+          <h2>{{ errorMsg[errorType].title }}</h2>
+        </div>
+        <p>{{ errorMsg[errorType].desc }}</p>
+      </div>
+
+      <button
+        class="btn-auth mt-10"
+        [class.disabled]="firstnameRequired || lastnameRequired || emailRequired || passwordRequired || emailFormatError || passwordFormatError"
+        (click)="register()"
+      >
+        REGISTRARME
+      </button>
+
+      <div class="auth-link mt-3">
+        ¿Ya tienes cuenta? <p (click)="redirectToLogin()">Ingresar</p>
+      </div>
+    </div>
+  </div>
+  <ng-template #successForm>
+    <div class="success-form auth-form other-shadow">
+      <div class="inner mt-40 mb-40">
+        <div class="logo-title">
+          <img class="w120" src="assets/images/logo.png" alt="Soltec Logo">
+        </div>
+        <div class="success-msg">
+          Tu cuenta ha sido creada exitosamente. Ahora puedes entrar y utilizar la plataforma.
+        </div>
+        <button class="btn-auth" (click)="redirectToLogin()">IR A INGRESAR</button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+

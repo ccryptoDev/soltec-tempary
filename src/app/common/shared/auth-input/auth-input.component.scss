@@ -1,0 +1,101 @@
+@import 'src/styles.scss';
+@import 'src/styles/_variables.scss';
+
+.input-container {
+  position: relative;
+  width: 100%;
+
+  .input-field {
+    position: relative;
+    width: 100%;
+    height: 56px;
+    border: 1px solid $border;
+    padding: 13px 14px;
+    border-radius: 6px;
+
+
+    &.regular-text {
+      color: $secondary-color;
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    &:focus, &.existLetter {
+      outline: none;
+      box-shadow: 0 0 5px #E5E5E550;
+      border-top: none;
+      border-top-left-radius: 6px;
+    }
+
+    &:focus + .placeholder, &.existLetter + .placeholder {
+      top: 0;
+      font-size: 14px;
+    }
+
+    &:focus ~ .placeholder-cover, &.existLetter ~ .placeholder-cover {
+      height: 1px;
+      z-index: 2;
+    }
+
+    &.error.ng-touched {
+      border: 1px solid $error-color;
+      color: $error-color;
+    }
+
+    &:focus.error.ng-touched {
+      border: 1px sold $error-color;
+      border-top: none;
+    }
+
+    &.error.existLetter.ng-touched {
+      border-top: none;
+    }
+
+    &.error.ng-touched ~ .placeholder-cover {
+      background-color: $error-color;
+      height: 1px;
+      z-index: 2;
+    }
+
+    &:-internal-autofill-selected {
+      appearance: menulist-button;
+      background-image: none !important;
+      background-color: transparent !important;
+      color: fieldtext !important;
+    }
+  }
+
+  .placeholder {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: top 0.3s ease, font-size 0.3s ease;
+    background-color: transparent;
+
+    &.active {
+      top: 0;
+      font-size: 14px;
+    }
+  }
+
+  .placeholder-cover {
+    position: absolute;
+    top: 0;
+    right: 3px;
+    width: calc(100% - 70px);
+    height: 0px;
+    background-color: $border;
+    transition: width 0.3s ease;
+  }
+
+  .password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 13px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+}

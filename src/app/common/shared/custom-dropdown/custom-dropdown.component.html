@@ -1,0 +1,16 @@
+<div class="custom-dropdown">
+  <div class="dropdown-header">
+    <div class="selected-item">{{ selectedItem }}</div>
+    <img
+      src="assets/images/down-arrow.png"
+      class="arrow-icon"
+      (click)="toggleDropdown()"
+      [class.arrow-reversed]="isArrowReversed"
+    >
+  </div>
+  <div class="dropdown-list" *ngIf="isOpen">
+    <div *ngFor="let item of items" (click)="selectItem(item)" [class.selected]="item === selectedItem">
+      {{ item }} <span class="check-icon" *ngIf="item === selectedItem">&#10004;</span>
+    </div>
+  </div>
+</div>

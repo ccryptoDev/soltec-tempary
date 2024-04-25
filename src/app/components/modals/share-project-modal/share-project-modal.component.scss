@@ -1,0 +1,35 @@
+@import 'src/styles/page.scss';
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  div {
+    width: 106px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 60px;
+    background: #F6F8FA;
+
+    img {
+      width: 24px;
+    }
+
+    span {
+      color: $primary-color;
+    }
+  }
+}
+
+.no-admin {
+  width: 100%;
+  padding: 0 52px;
+
+  button {
+    width: 100% !important;
+  }
+}
