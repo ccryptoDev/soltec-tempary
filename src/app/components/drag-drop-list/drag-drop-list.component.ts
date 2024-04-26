@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NgFor} from '@angular/common';
+import {NgFor, NgClass,CommonModule } from '@angular/common';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -14,7 +14,7 @@ import { InstanceTrackerDrawList, TrackerInformation } from 'src/app/models/inst
   templateUrl: './drag-drop-list.component.html',
   styleUrls: ['./drag-drop-list.component.scss'],
   standalone: true,
-  imports:[CdkDropList, NgFor, CdkDrag]
+  imports:[CdkDropList, NgFor, CdkDrag,CommonModule]
 })
 export class DragDropListComponent implements OnInit {
   @Input() data?: InstanceTrackerDrawList;
@@ -25,6 +25,7 @@ export class DragDropListComponent implements OnInit {
 
   done: TrackerInformation[] = [];
   onPossibleInfoClicked() {
+    // alert(this.isPossibleInfoClicked);
     this.isPossibleInfoClicked = !this.isPossibleInfoClicked;
   }
   ngOnInit(): void {

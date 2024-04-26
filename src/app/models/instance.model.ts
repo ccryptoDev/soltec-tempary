@@ -18,6 +18,7 @@ export interface Coordinate {
   x_south: number;
   y_south: number;
 }
+
 export interface TrackerInformation {
   "tracker_id": number,
   "name": string,
@@ -25,6 +26,15 @@ export interface TrackerInformation {
   "point_SE": number[],
   "point_NW": number[],
   "point_NE": number[]
+}
+export interface pointsInformation {
+  "posX": number,
+  "posY": number,
+  "point_id": number,
+}
+export interface step_3_1_Information {
+  "trackersCAD": TrackerInformation[],
+  "typographic_points": pointsInformation[]
 }
 export interface InstanceTrackerDrawList {
   "trackers_count": number,

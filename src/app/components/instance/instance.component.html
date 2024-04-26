@@ -294,12 +294,14 @@
             <div *ngIf="currentStep === 2 && isStep2flag === true" class="inner">
               <div class="confirm-form">
                 <div class="tracker-draw">
-                  <app-tracker-draw [data]="instanceTrackerDrawDummy.trackers" [tc1]="instanceTrackerDrawDummy.trackers_count" [tc2]="instanceTrackerDrawDummy.slaves_count" [tc3]="instanceTrackerDrawDummy.possible_trackers_count"> </app-tracker-draw>
+                  <app-tracker-draw [data]="instanceTrackerDrawDummy.trackers"
+                    [tc1]="instanceTrackerDrawDummy.trackers_count" [tc2]="instanceTrackerDrawDummy.slaves_count"
+                    [tc3]="instanceTrackerDrawDummy.possible_trackers_count"> </app-tracker-draw>
                   <!-- <canvas #myCanvas width="632" height="500" style="border:1px solid black; border-radius: 10px;"></canvas> -->
                 </div>
                 <div>
-                  <app-drag-drop-list [data]="instanceTrackerDrawDummy" (onDrop)="didDrop($event)" ></app-drag-drop-list>
-<!--                     
+                  <app-drag-drop-list [data]="instanceTrackerDrawDummy" (onDrop)="didDrop($event)"></app-drag-drop-list>
+                  <!--                     
                     <div class="tracker-header h-50 color-orange">
                       <p class="tracker-header-text font-calibri font-18">Trackers</p>
                     </div>
@@ -309,6 +311,28 @@
                       <p class="tracker-header-text font-calibri font-18">Posibles trackers</p>
                     </div> -->
                 </div>
+              </div>
+            </div>
+            <div *ngIf="currentStep === 3 && isStep3flag === false" class="inner">
+              <div class="step-title">
+                <h4 class="font-calibri tracker-header-text font-18">Confirma los atributos de los trackers y drivers
+                  Confirma la orientación y rotación de los puntos en el mapa topográfico.
+                </h4>
+              </div>
+              <div class="confirm-form">
+                <div class="tracker-draw">
+                  <app-tracker-draw [data]="step3Dummy.trackersCAD" [width]="map_width" [height]="map_height" title="La orientación de los trackers encontrados en el layout"> </app-tracker-draw>
+                  <!-- <canvas #myCanvas width="632" height="500" style="border:1px solid black; border-radius: 10px;"></canvas> -->
+                </div>
+                <div>
+                  <app-pointsdraw [data]="step3Dummy.typographic_points" [coondi] = "isChangeCoondi" [points_width]="map_width" [points_height]="map_height" title="La orientación de los trackers encontrados en el layout">
+                  </app-pointsdraw>
+                  <!--  point canvas   -->
+                </div>
+                
+              </div>
+              <div class="color-orange font-16 font-calibri change-coondi" (click)="changeCoondi()">
+                <img src="../../../assets/images/change-coondi.png" alt="">Intercambiar ejes
               </div>
             </div>
           </div>

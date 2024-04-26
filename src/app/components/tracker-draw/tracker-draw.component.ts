@@ -15,7 +15,9 @@ export class TrackerDrawComponent implements AfterViewInit, OnChanges {
   @Input() tc1?: number = 0
   @Input() tc2?: number = 0
   @Input() tc3?: number = 0
-  
+  @Input() title?: string = ''
+  @Input() width?: number = 875
+  @Input() height?: number = 564
 
   @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D;
