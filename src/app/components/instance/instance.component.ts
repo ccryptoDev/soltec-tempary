@@ -8,9 +8,10 @@ import { ProjectsService } from '../../services/projects.service';
 import { Instance, ProjectDetails, History, ProjectDetailData } from '../../models/project.model';
 import * as InstanceModel from '../../models/instance.model';
 import { TrackerDrawComponent } from '../tracker-draw/tracker-draw.component'
-import { InstanceTracker, InstanceTrackerDrawList, TrackerInformation } from '../../models/instance.model';
+import { PointsdrawComponent } from '../pointsdraw/pointsdraw.component';
+import { InstanceTracker, InstanceTrackerDrawList, TrackerInformation, step_3_1_Information } from '../../models/instance.model';
 import { projectsDetailDummy } from '../../utils/projects-detail.dummy';
-import { instanceDummy, instanceDummy_1, instanceTrackerDummy, instanceTrackerDrawDummy } from '../../utils/instance.dummy';
+import { instanceDummy, instanceDummy_1, instanceTrackerDummy, instanceTrackerDrawDummy, step_3_1Dummy } from '../../utils/instance.dummy';
 // import {Store} from '@ngrx/store';
 // import {Store} from '@ngrx/Store'
 import { BehaviorSubject } from 'rxjs';
@@ -43,19 +44,17 @@ export class InstanceComponent {
   showingCreateForm: boolean = false;
   isSelectInstanceModalOpen: boolean = false;
   isStep2flag: boolean = false;
+  isStep3flag: boolean = false;
+  isChangeCoondi: boolean = false;
+  map_width: number = 572;
+  map_height: number = 350;
 
   trackers_block_names: any[] = []
   trackers_block_names_right: any[] = []
-  // trackerInformation: TrackerInformation[] = [
-  //   {
-  //     "tracker_id": 0,
-  //     "name": "",
-  //     "point_SW": [],
-  //     "point_SE": [],
-  //     "point_NW": [],
-  //     "point_NE": []
-  //   }
-  // ]
+  step3Dummy: step_3_1_Information = {
+    "trackersCAD": [],
+    "typographic_points": []
+  }
   instanceTrackerDrawDummy: InstanceTrackerDrawList = {
     "trackers_count": 0,
     "slaves_count": 0,
@@ -257,13 +256,30 @@ export class InstanceComponent {
         this.currentStep--
         this.isStep2flag = true
       }
-      this.currentStep++; 
+      if (this.currentStep === 3 && this.isStep3flag === false) {
+        this.currentStep--
+        this.isStep3flag = true
+      }
+      this.currentStep++;
       if (this.currentStep === 2) {
         if (this.isStep2flag == true) {
+          // have to write step 2-2 API
           this.instanceTrackerDrawDummy = instanceTrackerDrawDummy;
-          console.log(this.instanceTrackerDrawDummy, 'aaaaaa');
         } else
           this.instanceTrackers = instanceTrackerDummy;
+        // step 2-1 API-----------
+        // this.projectsService.getInstanceID('ins5').subscribe((instanceTracker) => {
+        //   this.instanceTrackers = instanceTracker;
+        // })
+      }
+      
+      if (this.currentStep === 3) {
+        if (this.isStep3flag == true) {
+          // have to write step 3-2 API
+          // this.instanceTrackerDrawDummy = instanceTrackerDrawDummy;
+        } else
+          this.step3Dummy = step_3_1Dummy;
+        // ---------- have to write step 3-1 API
         // this.projectsService.getInstanceID('ins5').subscribe((instanceTracker) => {
         //   this.instanceTrackers = instanceTracker;
         // })
@@ -464,5 +480,8 @@ export class InstanceComponent {
 
   toggleSwitch() {
     this.isToggleChecked = !this.isToggleChecked;
+  }
+  changeCoondi(): void {
+    this.isChangeCoondi = !this.isChangeCoondi
   }
 }

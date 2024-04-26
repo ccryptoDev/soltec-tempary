@@ -39,6 +39,9 @@ import { CreateInstanceModalComponent } from './components/modals/create-instanc
 import { SelectInstanceModalComponent } from './components/modals/select-instance-modal/select-instance-modal.component';
 import { TrackerDrawComponent } from './components/tracker-draw/tracker-draw.component';
 import { DragDropListComponent } from './components/drag-drop-list/drag-drop-list.component';
+import { NgClass } from '@angular/common';
+import { PointsdrawComponent } from './components/pointsdraw/pointsdraw.component';
+import { SpinerComponent } from './components/spiner/spiner.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +64,8 @@ import { DragDropListComponent } from './components/drag-drop-list/drag-drop-lis
     InstanceComponent,
     CreateInstanceModalComponent,
     SelectInstanceModalComponent,
+    PointsdrawComponent,
+    SpinerComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +86,9 @@ import { DragDropListComponent } from './components/drag-drop-list/drag-drop-lis
     SharedModule,
     TooltipModule,
     DragDropListComponent,
+  ],
+  exports: [
+    DragDropListComponent
   ],
   providers: [
     {

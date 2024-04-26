@@ -454,9 +454,7 @@ input[type="checkbox"] {
     font-size: 16px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   }
-  .color-orange {
-    background-color: orange;
-  }
+  
   .tracker-check {
     width: 328px;
     margin-top: 20px;
@@ -581,17 +579,7 @@ input[type="checkbox"] {
     border: 1px solid #CBD2D9;
   }
 
-  .h-67 {
-    height: 67px;
-    line-height: 67px;
-    padding: 0px;
-    margin: 0px;
-  }
-  .h-50 {
-    height: 50px;
-    margin: 0px;
-    padding: 0;
-  }
+  
 
   .tracker-footer {
     cursor: pointer;
@@ -612,22 +600,7 @@ input[type="checkbox"] {
     border-top: 1px solid #ccc;
   }
 
-  .font-18 {
-    font-size: 18px;
-  }
-
-  .font-16 {
-    font-size: 16px;
-  }
-
-  .line-22 {
-    line-height: 22px;
-  }
-
-  .font-w-400 {
-    font-weight: 400;
-  }
-
+  
   .tracker-header-text {
     font-weight: 700;
     line-height: 22px;
@@ -681,4 +654,53 @@ input[type="checkbox"] {
       height: 24px;
     }
   }
+}
+.font-18 {
+  font-size: 18px;
+}
+
+.font-16 {
+  font-size: 16px;
+}
+
+.line-22 {
+  line-height: 22px;
+}
+
+.font-w-400 {
+  font-weight: 400;
+}
+.font-w-700 {
+  font-weight: 700;
+}
+.b-r-10 {
+  border-radius: 10px;
+  border: 1px solid ;
+}
+.change-coondi {
+  position: relative;
+  background-color: #F6F8FA;
+  height: 48px;
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 8px;
+  color: orange;
+  right: -572px;
+  transform: translateX(-26%);
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+.h-67 {
+  height: 67px;
+  line-height: 67px;
+  padding: 0px;
+  margin: 0px;
+}
+.h-50 {
+  height: 50px;
+  margin: 0px;
+  padding: 0;
 }
